@@ -1,0 +1,72 @@
+
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    width: 600px;
+    margin: 30px auto;
+}
+
+h1{
+    text-align: center;
+    color: black;
+}
+
+.card{
+    background-color: white;
+    border: 1px solid gray;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+h2{
+    margin-bottom: 15px;
+}
+
+label{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+input{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid gray;
+}
+
+button{
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.calculate-btn{
+    background-color: green;
+}
+
+.visualize-btn{
+    background-color: blue;
+}
+
+.clear-btn{
+    background-color: red;
+}
+
+p{
+    font-size: 18px;
+}
+
+img{
+    width: 100%;
+    margin-top: 15px;
+    border: 1px solid gray;
+}

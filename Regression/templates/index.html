@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Linear Regression Visualizer</title>
+
+</head>
+
+<body>
+<div class="container">
+    <h1>Linear Regression Best Fit Line</h1>
+    <div class="card">
+    <form action="/calculate" method="POST">
+         <label>Enter X Values</label><br>
+
+        <input
+            type="text"
+            name="x_values"
+            value="{{ x_values if x_values else '' }}"
+            placeholder="Example: 1,2,3,4,5"
+        >
+
+        <br><br>
+
+        <label>Enter Y Values</label><br>
+
+        <input
+            type="text"
+            name="y_values"
+            value="{{ y_values if y_values else '' }}"
+            placeholder="Example: 2,4,6,8,10"
+        >
+
+        <br><br>
+
+        <button class="calculate-btn" type="submit">
+    Calculate
+</button>
+
+<button class="visualize-btn"
+        type="submit"
+        formaction="/visualize">
+    Visualize
+</button>
+
+<button class="clear-btn"
+        type="button"
+        onclick="window.location.href='/'">
+    Clear
+</button>
+    </form></div>
+    {% if equation %}
+<div class="card">
+
+<h2>Results</h2>
+
+<p><strong>Equation:</strong> {{ equation }}</p>
+{% endif %}
+</div>
+{% if show_graph %}
+<div class="card">
+    <h2>Graph</h2>
+
+    <img src="{{ url_for('static', filename='graph.png') }}" alt="Regression Graph">
+{% endif %}
+</div>
+</div>
+</body>
+
+</html>
