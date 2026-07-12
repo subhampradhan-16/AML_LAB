@@ -92,25 +92,22 @@ def visualize():
     plt.ylabel("Y Values")
     plt.title("Linear Regression Best Fit Line")
     plt.grid(True)
-    text = (
-    f"MSE  = {mse:.4f}\n"
-    f"RMSE = {rmse:.4f}\n"
-    f"MAE  = {mae:.4f}\n"
-    f"R²   = {r2:.4f}"
-)
-
-    plt.text(
-        0.02,
-        0.98,
-        text,
-        transform=plt.gca().transAxes,
-        fontsize=10,
-        verticalalignment="top",
-        bbox=dict(facecolor="white", alpha=0.8)
-    )
     plt.legend()
     plt.savefig("static/graph.png")
     plt.close()
+
+    plt.figure(figsize=(8, 5))
+    labels=["MSE",'RMSE','MAE','R2']
+    metric=np.array([mse,rmse,mae,r2])
+    plt.scatter(metric,labels,color="blue",label="Error Metrics")
+    plt.xlabel("Error Metrics value")
+    plt.title("Error Metrics")
+    plt.grid(True)
+    plt.savefig("static/graph2.png")
+    plt.legend()
+    plt.close()
+
+
     return render_template(
     "index.html",
     x_values=request.form["x_values"],
