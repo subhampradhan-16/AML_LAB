@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiple Linear Regression</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+{% if equation %}
+
+<h2>Multiple Linear Regression</h2>
+
+<div class="card">
+    <h3>Regression Equation</h3>
+    <div class="equation">{{ equation }}</div>
+
+    <h3>Coefficients</h3>
+    <p><b>Intercept (b₀):</b> {{ intercept }}</p>
+
+    {% for name, slope in slopes.items() %}
+    <p><b>{{ name }}:</b> {{ slope }}</p>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h3>Prediction</h3>
+
+    <form action="/predict" method="POST">
+
+        <input type="hidden" name="y_name" value="{{ y_name }}">
+        <input type="hidden" name="y_input" value="{{ y_input }}">
+        <input type="hidden" name="x_raw_str" value="{{ x_raw_str }}">
+
+        {% for name in x_names %}
+        <label>{{ name }}</label>
+        <input type="number" step="any" name="pred_x_{{ loop.index0 }}" required>
+        {% endfor %}
+
+        <button type="submit">Predict</button>
+
+    </form>
+</div>
+
+<div class="card">
+    <h3>Graphs</h3>
+
+    <img src="data:image/png;base64,{{ plot1 }}" class="graph">
+
+    <img src="data:image/png;base64,{{ plot2 }}" class="graph">
+</div>
+
+<a href="/" class="restart">New Regression</a>
+
+{% else %}
+
+<h2>Multiple Linear Regression Calculator</h2>
+
+<form action="/calculate" method="POST">
+
+    <h3>Target Variable (Y)</h3>
+
+    <div class="row">
+        <input type="text" name="y_name" placeholder="Target Name" required>
+        <input type="text" name="y_values" placeholder="Values" required>
+    </div>
+
+    <h3>Feature Variables (X)</h3>
+
+    <div id="features-wrapper">
+
+        <div class="row">
+            <span class="label">x1</span>
+
+            <input type="text" name="x_name_0" placeholder="Feature Name" required>
+
+            <input type="text" name="x_values_0" placeholder="Values" required>
+
+        </div>
+
+    </div>
+
+    <button type="button" onclick="addFeatureRow()">+ Add Feature</button>
+
+    <button type="submit">Calculate</button>
+
+</form>
+
+{% endif %}
+
+</div>
+
+<script>
+
+let featureCount = 1;
+
+function addFeatureRow(){
+
+    const wrapper=document.getElementById("features-wrapper");
+
+    const row=document.createElement("div");
+
+    row.className="row";
+
+    row.innerHTML=`
+    <span class="label">x${featureCount+1}</span>
+
+    <input type="text" name="x_name_${featureCount}" placeholder="Feature Name" required>
+
+    <input type="text" name="x_values_${featureCount}" placeholder="Values" required>
+    `;
+
+    wrapper.appendChild(row);
+
+    featureCount++;
+
+}
+
+</script>
+
+</body>
+</html>
